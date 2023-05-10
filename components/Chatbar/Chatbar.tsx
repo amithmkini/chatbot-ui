@@ -19,6 +19,7 @@ import HomeContext from '@/pages/api/home/home.context';
 import { ChatFolders } from './components/ChatFolders';
 import { ChatbarSettings } from './components/ChatbarSettings';
 import { Conversations } from './components/Conversations';
+import { ClerkUserButton } from './components/ClerkUserButton';
 
 import Sidebar from '../Sidebar';
 import ChatbarContext from './Chatbar.context';
@@ -234,7 +235,12 @@ export const Chatbar = () => {
         handleCreateItem={handleNewConversation}
         handleCreateFolder={() => handleCreateFolder(t('New folder'), 'chat')}
         handleDrop={handleDrop}
-        footerComponent={<ChatbarSettings />}
+        footerComponent={
+          <>
+            <ChatbarSettings />
+            <ClerkUserButton />
+          </>
+        }
       />
     </ChatbarContext.Provider>
   );

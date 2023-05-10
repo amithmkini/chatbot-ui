@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from 'react-query';
 
 import { appWithTranslation } from 'next-i18next';
 import type { AppProps } from 'next/app';
+import { ClerkProvider } from "@clerk/nextjs";
 import { Inter } from 'next/font/google';
 
 import '@/styles/globals.css';
@@ -16,7 +17,9 @@ function App({ Component, pageProps }: AppProps<{}>) {
     <div className={inter.className}>
       <Toaster />
       <QueryClientProvider client={queryClient}>
-        <Component {...pageProps} />
+        <ClerkProvider {...pageProps}>
+          <Component {...pageProps} />
+        </ClerkProvider>
       </QueryClientProvider>
     </div>
   );
