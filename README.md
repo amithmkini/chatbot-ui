@@ -1,3 +1,14 @@
+# Chatbot with Clerk Support (Beta)
+
+Chatbot UI with support for Clerk authentication. Not battle tested, or even tested at all. Use at your own risk.
+
+# Usage
+- Create an application on [Clerk](https://clerk.com)
+- Set the following environment variables to enable Clerk support (refer .env.local.example for more details):
+  - NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY
+  - CLERK_SECRET_KEY
+- Follow the instructions below to run the application locally
+
 # Chatbot UI
 
 Chatbot UI is an open source chat UI for AI models.
@@ -23,7 +34,7 @@ Expect frequent improvements.
 
 Host your own live version of Chatbot UI with Vercel.
 
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Fmckaywrigley%2Fchatbot-ui)
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https%3A%2F%2Fgithub.com%2Famithmkini%2Fchatbot-ui)
 
 **Docker**
 

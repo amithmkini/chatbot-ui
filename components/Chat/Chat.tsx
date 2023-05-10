@@ -11,6 +11,7 @@ import {
 import toast from 'react-hot-toast';
 
 import { useTranslation } from 'next-i18next';
+import { useAuth } from '@clerk/nextjs';
 
 import { getEndpoint } from '@/utils/app/api';
 import {
@@ -33,6 +34,7 @@ import { ModelSelect } from './ModelSelect';
 import { SystemPrompt } from './SystemPrompt';
 import { TemperatureSlider } from './Temperature';
 import { MemoizedChatMessage } from './MemoizedChatMessage';
+import { get } from 'http';
 
 interface Props {
   stopConversationRef: MutableRefObject<boolean>;
@@ -68,8 +70,14 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
   const chatContainerRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
+  const { isLoaded, userId } = useAuth();
+
   const handleSend = useCallback(
     async (message: Message, deleteCount = 0, plugin: Plugin | null = null) => {
+      if (!isLoaded || !userId ) {
+        toast.error("Not logged in!");
+        return;
+      }
       if (selectedConversation) {
         let updatedConversation: Conversation;
         if (deleteCount) {
@@ -251,6 +259,8 @@ export const Chat = memo(({ stopConversationRef }: Props) => {
       pluginKeys,
       selectedConversation,
       stopConversationRef,
+      isLoaded,
+      userId,
     ],
   );
 
