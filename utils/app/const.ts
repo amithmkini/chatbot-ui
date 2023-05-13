@@ -79,3 +79,6 @@ export const RDBMS_COCKROACHDB_TIME_TRAVEL_QUERIES =
 
 export const NEXT_PUBLIC_NEXTAUTH_ENABLED =
   (process.env.NEXT_PUBLIC_NEXTAUTH_ENABLED == 'true') || false;
+
+export const CREDENTIALS =
+  (process.env.CREDENTIALS == 'true') || false;

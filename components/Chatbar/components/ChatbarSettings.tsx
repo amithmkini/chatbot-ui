@@ -89,13 +89,11 @@ export const ChatbarSettings = () => {
 
       {!serverSidePluginKeysSet ? <PluginKeys /> : null}
 
-      {NEXT_PUBLIC_NEXTAUTH_ENABLED && (
-        <SidebarButton
-          text={t('Log Out')}
-          icon={<IconLogout size={18} />}
-          onClick={handleSignOut}
-        />
-      )}
+      <SidebarButton
+        text={t('Log Out')}
+        icon={<IconLogout size={18} />}
+        onClick={handleSignOut}
+      />
 
       <SettingDialog
         open={isSettingDialogOpen}

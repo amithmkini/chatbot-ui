@@ -2,7 +2,8 @@ version: '3.6'
 
 services:
   chatbot:
-    image: ghcr.io/mckaywrigley/chatbot-ui:main
+    # image: ghcr.io/mckaywrigley/chatbot-ui:main
+    build: .
     restart: unless-stopped
     ports:
       - 3000:3000
@@ -22,7 +23,7 @@ services:
       COUCHDB_PASSWORD: ${COUCHDB_PASSWORD}
       COUCHDB_HOST: ${COUCHDB_HOST}
       COUCHDB_PORT: ${COUCHDB_PORT}
-      RDBMS_HOST: ${RDBMS_HOST}
+      RDBMS_HOST: postgres
       RDBMS_PORT: ${RDBMS_PORT}
       RDBMS_DB: ${RDBMS_DB}
       RDBMS_USER: ${RDBMS_USER}
@@ -34,22 +35,32 @@ services:
       RDBMS_SSL_CERT: ${RDBMS_SSL_CERT}
       RDBMS_SSL_KEY: ${RDBMS_SSL_KEY}
       RDBMS_COCKROACHDB_TIME_TRAVEL_QUERIES: ${RDBMS_COCKROACHDB_TIME_TRAVEL_QUERIES}
+      CREDENTIALS: ${CREDENTIALS}
     depends_on:
-      - couchdb
+      postgres:
+        condition: service_healthy
     networks:
       - chatbot
 
-  couchdb:
-    image: couchdb:3
+  postgres:
+    image: postgres:15-alpine
     restart: unless-stopped
-    volumes:
-      - ./couchdb.ini:/opt/couchdb/etc/local.d/00-local.ini
-      - './data:/opt/couchdb/data'
     environment:
-      COUCHDB_USER: ${COUCHDB_USER}
-      COUCHDB_PASSWORD: ${COUCHDB_PASSWORD}
+      POSTGRES_USER: ${RDBMS_USER}
+      POSTGRES_PASSWORD: ${RDBMS_PASS}
+      POSTGRES_DB: ${RDBMS_DB}
+    volumes:
+      - postgres:/var/lib/postgresql/data
     networks:
       - chatbot
+    healthcheck:
+      test: ["CMD", "pg_isready", "-U", "${RDBMS_USER}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
 
 networks:
   chatbot:
+
+volumes:
+  postgres:

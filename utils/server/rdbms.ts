@@ -155,6 +155,6 @@ export const getUser = async (dataSource: DataSource, id: string) => {
     rdbmsUser.id = id.toLowerCase();
   }
 
-  await userRepo.save(rdbmsUser);
+  userRepo.save(rdbmsUser);
   return rdbmsUser;
 };

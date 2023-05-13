@@ -1,3 +1,10 @@
+# Chatbot UI with Postgres and NextAuth.js
+
+This is an enhancement over jorge-menjivar's [chatbot-ui](https://github.com/jorge-menjivar/chatbot-ui/tree/rdbms_storage) project.
+The original branch had functional support for RDBMS storage, but it was not configured to work with Docker compose.
+This branch adds the support, and also adds suppot for username/password authentication using NextAuth.js (albeit a very very basic one).
+(Yes, I'm storing passwords as plaintext in the database, but that's an easy fix for you to do)
+
 # Chatbot UI
 
 Chatbot UI is an open source chat UI for AI models.
